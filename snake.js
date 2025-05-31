@@ -23,11 +23,19 @@ function gameLoop() {
   if (snake.y >= canvas.height) snake.y = 0;
   snake.cells.unshift({ x: snake.x, y: snake.y });
   if (snake.cells.length > snake.maxCells) snake.cells.pop();
-  ctx.fillStyle = 'red';
-  ctx.fillRect(apple.x, apple.y, grid-1, grid-1);
-  ctx.fillStyle = 'blue';
+  ctx.fillStyle = 'yellow';
+  // 마름모(다이아몬드)로 먹이 그리기
+  ctx.save();
+  ctx.translate(apple.x + grid/2, apple.y + grid/2);
+  ctx.rotate(Math.PI/4);
+  ctx.fillRect(-grid/2 + 1, -grid/2 + 1, grid-2, grid-2);
+  ctx.restore();
+  ctx.fillStyle = 'green';
   snake.cells.forEach((cell, index) => {
-    ctx.fillRect(cell.x, cell.y, grid-1, grid-1);
+    // 동그라미로 지렁이 그리기
+    ctx.beginPath();
+    ctx.arc(cell.x + grid/2, cell.y + grid/2, (grid-2)/2, 0, 2 * Math.PI);
+    ctx.fill();
     if (cell.x === apple.x && cell.y === apple.y) {
       snake.maxCells++;
       apple.x = getRandomInt(0, 20) * grid;
