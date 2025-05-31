@@ -25,7 +25,7 @@ function gameLoop() {
   if (snake.cells.length > snake.maxCells) snake.cells.pop();
   ctx.fillStyle = 'red';
   ctx.fillRect(apple.x, apple.y, grid-1, grid-1);
-  ctx.fillStyle = 'green';
+  ctx.fillStyle = 'blue';
   snake.cells.forEach((cell, index) => {
     ctx.fillRect(cell.x, cell.y, grid-1, grid-1);
     if (cell.x === apple.x && cell.y === apple.y) {
